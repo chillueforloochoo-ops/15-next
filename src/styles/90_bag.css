@@ -1,0 +1,234 @@
+/* =====================================================
+   BAG (simple / premium)
+===================================================== */
+.bagPage{
+  background: var(--surface);}
+.bagMain{ max-width: 1120px; margin: 0 auto; padding: 96px 20px 80px; }
+.bagTitle{ letter-spacing:.18em; font-size: 22px; margin: 0 0 18px; }
+
+.bagEmpty{ padding: 28px 0; }
+.bagBack{ text-decoration:none; color: rgba(15,15,16,.75); letter-spacing:.06em; }
+
+.bagLayout{
+  display:grid;
+  grid-template-columns: 1.4fr .6fr;
+  gap: 18px;
+  align-items:start;
+}
+
+.bagItem{
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 14px;
+  padding: 14px;
+  border-radius: 18px;
+
+  background: var(--card);                 /* ← トークン化 */
+  border: 1px solid var(--card-border);    /* ← トークン化 */
+  box-shadow: var(--shadow-card);           /* ← トークン化 */
+}
+.bagThumb{
+  background: var(--stage-bg-thumb);   /* ← ここだけ変更 */
+  border: 1px solid var(--stage-border);
+  border-radius: var(--stage-radius);
+  box-shadow: var(--stage-shadow);
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bagThumb img{
+  display:block;
+  max-width:100%;
+  max-height:100%;
+  height:auto;
+  object-fit: contain;
+}
+
+.bagName .en{ font-size: 13px; letter-spacing:.08em; }
+.bagName .ja{ font-size: 12px; color: rgba(15,15,16,.55); margin-top: 4px; }
+.sumCtaJa {
+  display: block;
+  font-size: 11px;
+  opacity: .8;
+  margin-top: 2px;
+}
+
+.bagMeta{ margin-top: 10px; display:flex; align-items:center; gap:10px; }
+.pillMini{
+  display:inline-flex; align-items:center;
+  height: 22px; padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(15,15,16,.14);
+  background: rgba(255,255,255,.6);
+  font-size: 11px; letter-spacing:.14em;
+  color: rgba(15,15,16,.72);
+}
+
+.bagRow{
+  margin-top: 12px;
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.bagPrice{ font-size: 13px; letter-spacing:.06em; }
+
+.bagQty{
+  display:flex; align-items:center; gap:10px;
+  border: 1px solid rgba(15,15,16,.14);
+  background: rgba(255,255,255,.6);
+  border-radius: 999px;
+  padding: 6px 10px;
+}
+.qtyBtn{
+  width: 28px; height: 28px;
+  border-radius: 999px;
+  border: 1px solid rgba(15,15,16,.12);
+  background: rgba(255,255,255,.8);
+  cursor:pointer;
+}
+.qtyNum{ min-width: 18px; text-align:center; font-size: 12px; color: rgba(15,15,16,.8); }
+
+.bagRemoveX {
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--c-midgray);
+  cursor: pointer;
+  transition: opacity .2s ease;
+}
+
+.bagRemoveX:hover {
+  opacity: .5;
+}
+
+.bagSummary{ position: sticky; top: 90px; }
+.sumCard{
+  border-radius: 18px;
+  background: rgba(255,255,255,.65);
+  border: 1px solid rgba(15,15,16,.12);
+  box-shadow: 0 14px 40px rgba(0,0,0,.06);
+  padding: 16px;
+}
+.sumRow{
+  display:flex; justify-content:space-between; align-items:center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(15,15,16,.08);
+}
+.sumRow:last-of-type{ border-bottom:none; }
+.sumVal{ font-size: 13px; letter-spacing:.06em; }
+
+.sumCta{
+  margin-top: 12px;
+  min-height: 52px;
+  padding: 10px 14px;
+  border-radius: 16px;
+  background: #0f0f10;
+  color: #fff;
+
+  display: flex;
+  flex-direction: column;      /* ← 2行前提に */
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+
+  text-decoration: none;
+
+  font-size: 14px;             /* CHECKOUT側 */
+  font-weight: 600;
+  letter-spacing: .18em;
+  line-height: 1.15;
+}
+.sumCtaJa{
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: .08em;  /* ← 英字と分ける */
+  opacity: .75;
+  margin-top: 0;          /* gapで管理するので0 */
+  line-height: 1.15;
+}
+
+.sumNote{
+  margin: 12px 2px 0;
+  font-size: 12px;
+  line-height: 1.8;
+  color: rgba(15,15,16,.55);
+}
+
+/* ===== BAG bilingual bits ===== */
+.bagTitleJa {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--c-midgray);
+  margin-top: 4px;
+}
+
+/* ===== qty=0 state ===== */
+.bagItem.is-removed {
+  opacity: 0.45;
+  filter: grayscale(0.4);
+}
+
+.bagRemovedTag {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--c-midgray);
+}
+
+.bagRemovedTag .ja {
+  margin-left: 6px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+
+/* ===== Quantity buttons ===== */
+.bagQtyBtn {
+  border: 1px solid var(--c-border);
+  background: transparent;
+  width: 28px;
+  height: 28px;
+  font-size: 14px;
+  color: var(--c-midgray);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.bagQtyBtn:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.bagQtyBtn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.bagQtyPlus {
+  margin-left: 2px;
+}
+
+.bagQtyPlus.is-revive {
+  border-color: var(--c-text);
+  color: var(--c-text);
+  background: rgba(0, 0, 0, 0.04);
+  transform: scale(1.12);
+}
+
+.bagQtyPlus.is-revive:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 900px){
+  .bagMain{ padding-top: 84px; }
+  .bagLayout{ grid-template-columns: 1fr; }
+  .bagSummary{ position: static; }
+  .bagItem{ grid-template-columns: 96px 1fr; }
+}
+
+/* bag内の section padding の巻き込みを無効化 */
+.bagMain section{ padding: 0 !important; border: 0 !important; }

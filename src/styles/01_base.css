@@ -1,0 +1,47 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Noto Sans JP",
+    sans-serif;
+  background: var(--c-offwhite);
+  color: var(--c-black);
+  line-height: 1.7;
+}
+
+a {
+  color: inherit;
+}
+
+/* utility-ish (used across pages) */
+.ja {
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--c-midgray);
+}
+/* ===== Photo stage (shared) ===== */
+.photoStage{
+  background: var(--stage-bg);
+  border: 1px solid var(--stage-border);
+  border-radius: var(--stage-radius);
+  box-shadow: var(--stage-shadow);
+  overflow: hidden;
+  position: relative;
+}
+
+/* ほんの少しだけ質感（なくてもOK） */
+.photoStage::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background: radial-gradient(80% 60% at 50% 35%,
+    rgba(255,255,255,.08) 0%,
+    rgba(255,255,255,0) 60%);
+  opacity: .35;          /* 少し弱め */
+  /* mix-blend-mode: overlay; ← これを消す */
+}

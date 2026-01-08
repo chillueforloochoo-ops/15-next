@@ -1,0 +1,131 @@
+/* =========================
+   Contest mock responsive (元の位置に近い形で残す)
+   ※もし 21_contest.css に入れてるなら、ここは空でもOK
+   ========================= */
+
+/* ===== レスポンシブ ===== */
+@media (max-width: 768px) {
+  .nav-desktop {
+    display: none;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  header {
+    padding: 0 20px;
+  }
+}
+
+@media (min-width: 769px) {
+  .nav-overlay {
+    display: none;
+  }
+}
+
+/* タブレット */
+@media (max-width: 1024px) {
+  section {
+    padding: 80px 24px;
+  }
+
+  .grid-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+/* スマホ */
+@media (max-width: 768px) {
+  #hero {
+    padding: 100px 24px 60px;
+  }
+
+  #hero h1 {
+    font-size: 42px;
+    letter-spacing: 0.25em;
+  }
+
+  .grid-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  footer {
+    padding: 40px 24px;
+  }
+}
+
+/* 元HTMLの追加レスポンシブ */
+@media (max-width: 1024px) {
+  header {
+    padding: 0 24px;
+  }
+  section {
+    padding: 80px 24px;
+  }
+  .grid-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .strengths-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .contest-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  #hero {
+    padding: 100px 24px 60px;
+  }
+  #hero h1 {
+    font-size: 42px;
+    letter-spacing: 0.25em;
+  }
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+  .strengths-list {
+    grid-template-columns: 1fr;
+  }
+  footer {
+    padding: 40px 24px;
+  }
+}
+
+/* responsive */
+@media (max-width: 900px){
+  .featureCard{ grid-template-columns: 1fr; }
+  .featureCard__media img{ min-height: 420px; }
+  .productGrid{ grid-template-columns: 1fr; }
+  .cat-hero__en{ font-size: 46px; }
+}
+@media (max-width: 1100px){
+  .productGrid{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 900px){
+  .cat-hero__grid{ grid-template-columns: 1fr; }
+  .productGrid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 520px){
+  .productGrid{ grid-template-columns: 1fr; }
+}
+
+/* responsive */
+@media (max-width: 900px) {
+  .uniform-title__en {
+    font-size: 44px;
+  }
+  .uniform-h2 {
+    font-size: 26px;
+  }
+  .uniform-gallery {
+    grid-template-columns: 1fr;
+  }
+  .uniform-priceGrid {
+    grid-template-columns: 1fr;
+  }
+}

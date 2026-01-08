@@ -1,0 +1,63 @@
+/* =====================================================
+   KNIT PAGE (GUCCI-like) — same as others
+===================================================== */
+
+.knitPage { background: #f7f5f2; color: #0f0f10; }
+.knitMain { margin-top: 0; padding-top: 0; }
+
+
+/* GRID */
+.knitGridSection{ max-width: 1120px; margin: 40px auto 0; padding: 0 20px; }
+.knitGrid{ display:grid; grid-template-columns: repeat(4,1fr); gap:14px; }
+
+.knitItem{
+  display:block;
+  text-decoration:none;
+  color:inherit;
+  background: var(--card);
+  border-radius: 18px;
+  overflow:hidden;
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow-card);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+@media (hover:hover){
+  .knitItem:hover{ transform: translateY(-2px); box-shadow: var(--shadow-card-hover); }
+}
+
+.knitItem__image{
+  position:relative;
+  background: var(--stage-bg);
+  border-bottom: 1px solid var(--stage-border);
+}
+.knitItem__image img{
+  width:100%;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  transition: transform .35s ease;
+}
+@media (hover:hover){
+  .knitItem:hover img{ transform: scale(1.03); }
+}
+
+.knitItem__badge{
+  position:absolute;
+  top:12px; left:12px;
+  background: rgba(0,0,0,0.45);
+  color:#fff;
+  font-size:11px;
+  padding:4px 10px;
+  border-radius:999px;
+  letter-spacing:.15em;
+  backdrop-filter: blur(2px);
+}
+.knitItem__info{ padding: 14px; }
+.knitItem__info .en{ display:block; font-size:13px; letter-spacing:.08em; }
+.knitItem__info .ja{ display:block; margin-top:4px; font-size:12px; color: rgba(15,15,16,.55); }
+.knitItem__row{ margin-top:10px; display:flex; justify-content:space-between; font-size:12px; color: rgba(15,15,16,.6); }
+
+@media (max-width: 900px){
+  .knitHero{ min-height: 64vh; }
+  .knitHero__title{ font-size: 40px; }
+  .knitGrid{ grid-template-columns: repeat(2,1fr); }
+}

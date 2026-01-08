@@ -1,0 +1,112 @@
+/* =====================================================
+   JACKET PAGE (GUCCI-like) — same as T-SHIRT / HOODIE
+===================================================== */
+
+.jacketPage {
+  background: #f7f5f2;
+  color: #0f0f10;
+}
+
+/* header直下の余白を完全に消す */
+.jacketMain {
+  margin-top: 0;
+  padding-top: 0;
+}
+/* ================= GRID ================= */
+
+.jacketGridSection {
+  max-width: 1120px;
+  margin: 40px auto 0;
+  padding: 0 20px;
+}
+
+.jacketGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.jacketItem {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+
+  background: var(--card);
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow-card);
+
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+@media (hover:hover){
+  .jacketItem:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card-hover);
+  }
+}
+
+.jacketItem__image {
+  position: relative;
+  background: var(--stage-bg);
+  border-bottom: 1px solid var(--stage-border);
+}
+
+.jacketItem__image img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  transition: transform .35s ease;
+}
+
+@media (hover:hover){
+  .jacketItem:hover img {
+    transform: scale(1.03);
+  }
+}
+
+.jacketItem__badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.15em;
+  backdrop-filter: blur(2px);
+}
+
+.jacketItem__info {
+  padding: 14px;
+}
+
+.jacketItem__info .en {
+  display: block;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+}
+
+.jacketItem__info .ja {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: rgba(15,15,16,0.55);
+}
+
+.jacketItem__row {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: rgba(15,15,16,0.6);
+}
+
+@media (max-width: 900px) {
+  .jacketHero { min-height: 64vh; }
+  .jacketHero__title { font-size: 40px; }
+  .jacketGrid { grid-template-columns: repeat(2, 1fr); }
+}

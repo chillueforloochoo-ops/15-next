@@ -1,0 +1,99 @@
+/* =========================
+   Tabs UI (Reusable)
+========================= */
+
+.tabsRow{
+  max-width: 1120px;
+  margin: 12px auto 0;
+  padding: 0 20px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 56px;
+}
+
+.tabsSection{
+  margin: 0;
+  padding: 0;
+}
+
+.tabs{
+  display:flex;
+  gap: 18px;
+  align-items:flex-end;
+  width: fit-content;
+  border-bottom: 1px solid rgba(15,15,16,.12);
+}
+
+.tab{
+  appearance:none;
+  background: transparent;
+  border: 0;
+  padding: 6px 2px 8px;
+  cursor: pointer;
+  text-align:left;
+  position: relative;
+}
+
+.tab .en{
+  display:block;
+  font-size: 11px;
+  letter-spacing: .20em;
+  color: rgba(15,15,16,.50);
+}
+
+.tab .ja{
+  display:block;
+  margin-top: 3px;
+  font-size: 9px;
+  letter-spacing: .16em;
+  color: rgba(15,15,16,.34);
+}
+
+.tab.is-active .en{ color: rgba(15,15,16,.92); }
+.tab.is-active .ja{ color: rgba(15,15,16,.55); }
+
+.tab.is-active::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-1px;
+  height:2px;
+  background: rgba(15,15,16,.92);
+  border-radius: 2px;
+}
+
+/* Filterだけ追従させたい時に付ける */
+.isSticky{
+  position: sticky;
+  top: 84px;
+  z-index: 20;
+  background: rgba(247,245,242,.86);
+  backdrop-filter: blur(12px);
+
+  /* ★段差の原因になりやすいのでpaddingは持たせない */
+  padding: 0;
+}
+
+/* SP：縦積み＋中央寄せ + 横スクロール対応 */
+@media (max-width: 640px){
+  .tabsRow{
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 14px;
+  }
+
+  .tabs{
+    margin: 0 auto;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .tabs::-webkit-scrollbar{ display:none; }
+  .tab{ white-space: nowrap; }
+}

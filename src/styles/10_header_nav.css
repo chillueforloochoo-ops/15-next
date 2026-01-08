@@ -1,0 +1,236 @@
+/* =========================
+   SiteHeader (GUCCI-like)
+========================= */
+
+.sh{
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(247,246,243,.78);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+
+.shInner{
+  height: 72px;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.shLogo{
+  text-decoration:none;
+  font-weight: 600;
+  letter-spacing: .22em;
+  font-size: 18px;
+}
+
+.shRight{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+}
+
+.shIcon{
+  width: 38px;
+  height: 38px;
+  display:grid;
+  place-items:center;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.10);
+  text-decoration:none;
+  background: rgba(255,255,255,.7);
+}
+
+.shMenuBtn{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  height: 38px;
+  padding: 0 12px 0 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.10);
+  background: rgba(255,255,255,.7);
+  cursor:pointer;
+}
+
+.shMenuText{
+  font-size: 12px;
+  letter-spacing: .18em;
+  color: rgba(15,15,16,.78);
+}
+
+.shBurger{
+  width: 18px;
+  height: 14px;
+  position: relative;
+  display:block;
+}
+.shBurger i{
+  position:absolute;
+  left:0;
+  right:0;
+  height: 1px;
+  background: rgba(15,15,16,.85);
+}
+.shBurger i:nth-child(1){ top: 3px; }
+.shBurger i:nth-child(2){ bottom: 3px; }
+
+/* Drawer */
+.shDrawerWrap{
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+}
+.shDrawerWrap.isOpen{
+  pointer-events: auto;
+}
+
+.shBackdrop{
+  position:absolute;
+  inset:0;
+  background: rgba(0,0,0,.35);
+  opacity: 0;
+  transition: opacity .25s ease;
+}
+.shDrawerWrap.isOpen .shBackdrop{ opacity: 1; }
+
+.shDrawer{
+  position:absolute;
+  top:0;
+  right:0;
+  height:100%;
+  width: min(420px, 92vw);
+  background: #fff;
+  transform: translateX(110%);
+  transition: transform .28s ease;
+  box-shadow: 0 30px 90px rgba(0,0,0,.22);
+  display:flex;
+  flex-direction:column;
+}
+.shDrawerWrap.isOpen .shDrawer{ transform: translateX(0); }
+
+.shDrawerHead{
+  height: 72px;
+  padding: 0 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+
+.shDrawerTitle{
+  font-size: 12px;
+  letter-spacing: .22em;
+  color: rgba(15,15,16,.72);
+}
+
+.shBack,
+.shClose{
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.10);
+  background: #fff;
+  cursor:pointer;
+}
+.shHeadSpacer{ width: 42px; height: 42px; }
+
+.shDrawerBody{
+  padding: 18px;
+  overflow:auto;
+}
+
+.shNav{
+  display:flex;
+  flex-direction:column;
+}
+
+.shNavItem{
+  text-decoration:none;
+  background: transparent;
+  border: 0;
+  text-align:left;
+  cursor:pointer;
+  padding: 16px 10px;
+  font-size: 22px;
+  letter-spacing: .06em;
+  color: rgba(15,15,16,.92);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+
+.shSectionLabel{
+  padding: 14px 10px 8px;
+  font-size: 12px;
+  letter-spacing: .22em;
+  color: rgba(15,15,16,.55);
+}
+
+.shDrawerFoot{
+  margin-top:auto;
+  padding: 16px 18px 20px;
+  border-top: 1px solid rgba(0,0,0,.06);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap: 10px;
+  font-size: 12px;
+  letter-spacing: .12em;
+  color: rgba(15,15,16,.60);
+}
+.shFootLink{ text-decoration:none; }
+.shDot{ opacity: .6; }
+/* 2行表記（EN + カタカナ） */
+.shNavItem{
+  text-decoration:none;
+  background: transparent;
+  border: 0;
+  text-align:left;
+  cursor:pointer;
+
+  padding: 16px 10px;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+
+  display:flex;
+  flex-direction:column;
+  gap: 6px;
+  width: 100%;
+}
+
+.shNavEn{
+  font-size: 22px;
+  letter-spacing: .06em;
+  color: rgba(15,15,16,.92);
+}
+
+.shNavJa{
+  font-size: 12px;
+  letter-spacing: .18em;
+  color: rgba(15,15,16,.55);
+}
+
+.shSectionLabel{
+  padding: 14px 10px 10px;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+  margin-bottom: 6px;
+
+  display:flex;
+  flex-direction:column;
+  gap: 6px;
+}
+
+.shSectionEn{
+  font-size: 12px;
+  letter-spacing: .22em;
+  color: rgba(15,15,16,.62);
+}
+
+.shSectionJa{
+  font-size: 11px;
+  letter-spacing: .18em;
+  color: rgba(15,15,16,.45);
+}

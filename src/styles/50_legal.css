@@ -1,0 +1,99 @@
+/* ===== Legal pages (Gucci-ish) ===== */
+.legal-header{
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(245,245,242,0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding: 18px 24px;
+}
+
+.legal-logo{
+  font-family:"Times New Roman","Yu Mincho",serif;
+  letter-spacing:0.28em;
+  text-decoration:none;
+  color:#111;
+  font-size:18px;
+}
+
+.legal-nav a{
+  text-decoration:none;
+  color:#111;
+  font-size:12px;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  opacity:0.75;
+  margin-left:16px;
+}
+.legal-nav a:hover{ opacity:1; }
+
+.legal-main{
+  background: #f5f5f2;
+  color:#111;
+  padding: 80px 24px 120px;
+}
+
+.legal-inner{
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.legal-eyebrow{
+  text-align:center;
+  font-size:12px;
+  letter-spacing:0.22em;
+  opacity:0.55;
+  margin: 0 0 18px;
+}
+
+.legal-title{
+  text-align:center;
+  font-family:"Yu Mincho","Times New Roman",serif;
+  font-weight:500;
+  letter-spacing:0.06em;
+  font-size:28px;
+  margin: 0 0 10px;
+}
+
+.legal-meta{
+  text-align:center;
+  font-size:12px;
+  opacity:0.55;
+  margin: 0 0 46px;
+}
+
+.legal-section{
+  padding: 24px 0;
+  border-top: 1px solid rgba(0,0,0,0.08);
+  line-height: 2;
+  font-size: 14px;
+}
+
+.legal-section h2{
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  margin: 0 0 10px;
+  font-weight: 600;
+}
+
+.legal-section ul{
+  padding-left: 1.2em;
+  margin: 10px 0 0;
+}
+
+.legal-back{
+  margin-top: 44px;
+  text-align:center;
+}
+.legal-back a{
+  text-decoration:none;
+  color:#111;
+  font-size:12px;
+  letter-spacing:0.12em;
+  opacity:0.7;
+}
+.legal-back a:hover{ opacity:1; }

@@ -1,0 +1,41 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Noto Sans JP",
+    sans-serif;
+  background: var(--c-offwhite);
+  color: var(--c-black);
+  line-height: 1.7;
+}
+
+a {
+  color: inherit;
+}
+
+/* utility-ish (used across pages) */
+.ja {
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--c-midgray);
+}
+:root{
+  /* Surface */
+  --surface: #f7f6f3;      /* ページの土台 */
+  --card: #ffffff;         /* カード面 */
+  --card-border: rgba(0,0,0,.08);
+
+  /* Shadow（程よく・上品） */
+  --shadow-card: 0 14px 40px rgba(0,0,0,.06);
+  --shadow-card-hover: 0 18px 55px rgba(0,0,0,.08);
+}
+
+:root{
+  --stage-bg: #ffffff;
+  --stage-bg-thumb: #ffffff;
+}
+

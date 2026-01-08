@@ -1,0 +1,242 @@
+/* =====================================================
+   T-SHIRT PAGE (GUCCI-like)
+===================================================== */
+
+.shirtPage {
+  background: #f7f5f2;
+  color: #0f0f10;
+}
+
+/* header直下の余白を完全に消す */
+.shirtMain {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* ================= GRID ================= */
+
+.shirtGridSection {
+  max-width: 1120px;
+  margin: 40px auto 0;
+  padding: 0 20px;
+}
+
+.shirtGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.shirtItem {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+
+  background: var(--card);                 /* ← 白カード */
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--card-border);    /* ← トークン化 */
+  box-shadow: var(--shadow-card);          /* ← トークン化 */
+
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+@media (hover:hover){
+  .shirtItem:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card-hover);  /* ← ホバー時 */
+  }
+}
+
+/* ===== 画像の“舞台” ===== */
+.shirtItem__image {
+  position: relative;
+  background: var(--stage-bg);              /* ← 上品な黒舞台 */
+  border-bottom: 1px solid var(--stage-border);
+}
+
+/* 画像 */
+.shirtItem__image img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;                      /* ← 輪郭優先 */
+  transition: transform .35s ease;
+}
+
+@media (hover:hover){
+  .tshirtItem:hover img {
+    transform: scale(1.03);
+  }
+}
+
+/* バッジ */
+.shirtItem__badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.15em;
+  backdrop-filter: blur(2px);
+}
+
+.shirtItem__info {
+  padding: 14px;
+}
+
+.shirtItem__info .en {
+  display: block;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+}
+
+.shirtItem__info .ja {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: rgba(15,15,16,0.55);
+}
+
+.shirtItem__row {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: rgba(15,15,16,0.6);
+}
+
+/* ================= SP ================= */
+
+@media (max-width: 900px) {
+  .shirtHero {
+    min-height: 64vh;
+  }
+
+  .shirtHero__title {
+    font-size: 40px;
+  }
+
+  .shirtGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* =========================
+   SHIRT: Tabs row spacing
+   （修正点のみ反映：PCで離れない / SPで中央寄せ）
+========================= */
+
+/* 既存の tabsSection が max-width/margin/padding を持ってるなら打ち消す */
+.shirtMain .tabsSection{
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* 性別＋袖を置く行 */
+.shirtMain .tabsRow{
+  max-width: 1120px;
+  margin: 12px auto 0;
+  padding: 0 20px;
+
+  display: flex;
+  align-items: flex-end;
+
+  /* ★修正：左右に飛ばさず中央寄せ */
+  justify-content: center;
+  gap: 56px; /* 好みで 40〜72 */
+}
+
+/* SPは縦積み＋中央寄せ */
+@media (max-width: 640px){
+  .shirtMain .tabsRow{
+    flex-direction: column;
+    align-items: center;  /* ★修正：中央 */
+    gap: 14px;
+  }
+
+  /* タブ自体も中央に寄せると綺麗 */
+  .shirtMain .tabs{
+    margin: 0 auto;
+  }
+
+  /* 右側の sticky はSPでは解除して自然に */
+  .shirtMain .shirtFilterSection{
+    position: static;
+    top: auto;
+    padding: 0;
+    background: transparent;
+    backdrop-filter: none;
+  }
+}
+
+/* =========================
+   SOLD OUT overlay (A) - scoped
+========================= */
+
+/* 念のため：カード or 画像枠にrelativeを保証 */
+.shirtItem__image{
+  position: relative;
+}
+
+/* ★重要：overlayは画像枠の中だけに効かせる */
+.shirtItem__image .soldOverlay{
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 12px;
+
+  background: rgba(255,255,255,.38);
+  backdrop-filter: blur(1px);
+
+  /* 画像枠に合わせる（角丸がある場合） */
+  border-radius: 18px 18px 0 0;
+
+  /* クリックは通す（売り切れでも詳細は見せる方針に合う） */
+  pointer-events: none;
+}
+
+/* バッジ（丸ピル） */
+.shirtItem__image .soldPill{
+  display: inline-block;
+  background: rgba(15,15,16,.78);
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: .16em;
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+.shirtItem__image .soldPillJa{
+  display: inline-block;
+  margin-left: 8px;
+  background: rgba(15,15,16,.18);
+  color: rgba(15,15,16,.72);
+  font-size: 10px;
+  letter-spacing: .14em;
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+/* soldout時の画像だけ少し抑える */
+.shirtItem.is-soldout .shirtItem__image img{
+  filter: saturate(.65);
+  opacity: .92;
+}
+
+/* カード挙動を弱める（クリックはできる） */
+.shirtItem.is-soldout{
+  opacity: .92;
+}
+@media (hover:hover){
+  .shirtItem.is-soldout:hover{
+    transform: none;
+    box-shadow: var(--shadow-card);
+  }
+}

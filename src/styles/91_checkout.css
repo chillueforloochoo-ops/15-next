@@ -1,0 +1,164 @@
+/* =====================================================
+   CHECKOUT (GUCCI-like)
+===================================================== */
+.coPage{ background:#f7f5f2; color:#0f0f10; }
+.coMain{ max-width: 1240px; margin: 0 auto; padding: 96px 20px 80px; }
+
+.coCrumb{
+  font-size: 12px; letter-spacing:.08em;
+  color: rgba(15,15,16,.55);
+  display:flex; gap:10px; align-items:center;
+  margin-bottom: 18px;
+}
+.coCrumb a{ color: rgba(15,15,16,.65); text-decoration:none; }
+.coSep{ opacity:.6; }
+
+.coLayout{
+  display:grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 22px;
+  align-items:start;
+}
+
+.coTitle{ font-size: 22px; letter-spacing:.18em; margin: 0 0 14px; }
+
+.coGate{
+  border-radius: 18px;
+  background: rgba(255,255,255,.65);
+  border: 1px solid rgba(15,15,16,.12);
+  box-shadow: 0 14px 40px rgba(0,0,0,.06);
+  padding: 14px;
+  margin-bottom: 14px;
+}
+.coGateTitle{ font-size: 12px; letter-spacing:.12em; color: rgba(15,15,16,.65); }
+.coGateBody{ margin-top: 10px; display:flex; gap:10px; align-items:center; }
+.coGhostBtn{
+  height: 44px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(15,15,16,.16);
+  background: rgba(255,255,255,.7);
+  cursor:pointer;
+  letter-spacing:.08em;
+}
+.coGateNote{ font-size: 12px; color: rgba(15,15,16,.55); }
+
+.coFields{ display:flex; flex-direction:column; gap: 12px; }
+
+.coBlock{
+  border-radius: 18px;
+  background: rgba(255,255,255,.65);
+  border: 1px solid rgba(15,15,16,.12);
+  box-shadow: 0 14px 40px rgba(0,0,0,.06);
+  padding: 14px;
+}
+.coBlockTitle{
+  font-size: 12px;
+  letter-spacing:.12em;
+  color: rgba(15,15,16,.65);
+  margin-bottom: 10px;
+}
+
+.coField{ display:flex; flex-direction:column; gap: 8px; margin-bottom: 10px; }
+.coField span{ font-size: 12px; color: rgba(15,15,16,.55); letter-spacing:.06em; }
+
+.coField input,
+.coField select,
+.coField textarea{
+  height: 46px;
+  border-radius: 14px;
+  border: 1px solid rgba(15,15,16,.14);
+  background: rgba(255,255,255,.78);
+  padding: 0 12px;
+  outline: none;
+}
+.coField textarea{
+  height: auto;
+  padding: 10px 12px;
+  resize: vertical;
+}
+
+.coGrid2{ display:grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.coPayBtn{
+  height: 56px;
+  border-radius: 16px;
+  border: none;
+  background: #0f0f10;
+  color: #fff;
+  letter-spacing:.14em;
+  cursor:pointer;
+}
+.coPayBtn:disabled{ opacity:.55; cursor:not-allowed; }
+
+.coFoot{
+  margin: 4px 2px 0;
+  font-size: 12px;
+  line-height: 1.8;
+  color: rgba(15,15,16,.55);
+}
+
+/* Summary */
+.coSummary{ position: sticky; top: 90px; }
+.coSumCard{
+  border-radius: 18px;
+  background: rgba(255,255,255,.65);
+  border: 1px solid rgba(15,15,16,.12);
+  box-shadow: 0 14px 40px rgba(0,0,0,.06);
+  padding: 14px;
+}
+.coSumTitle{ font-size: 12px; letter-spacing:.12em; color: rgba(15,15,16,.65); }
+
+.coLineList{ margin-top: 12px; display:flex; flex-direction:column; gap: 12px; }
+.coLine{ display:grid; grid-template-columns: 58px 1fr auto; gap: 12px; align-items:center; }
+
+.coLineThumb{
+  position: relative;
+  border-radius: 14px;
+  overflow:hidden;
+  background:#111;
+  border: 1px solid rgba(15,15,16,.12);
+}
+.coLineThumb img{ width:100%; display:block; aspect-ratio: 1/1; object-fit: cover; }
+.coQty{
+  position:absolute;
+  right: 6px; top: 6px;
+  height: 18px;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.55);
+  color:#fff;
+  font-size: 11px;
+  display:flex; align-items:center; justify-content:center;
+}
+
+.coLineName{ font-size: 12px; letter-spacing:.06em; }
+.coLineMeta{ margin-top: 4px; font-size: 11px; color: rgba(15,15,16,.55); }
+.coLinePrice{ font-size: 12px; letter-spacing:.06em; color: rgba(15,15,16,.7); }
+
+.coSumRows{ margin-top: 12px; border-top: 1px solid rgba(15,15,16,.10); padding-top: 10px; }
+.coSumRow{ display:flex; justify-content:space-between; padding: 8px 0; font-size: 12px; }
+.coSumTotal{ border-top: 1px solid rgba(15,15,16,.10); margin-top: 6px; padding-top: 10px; font-size: 13px; letter-spacing:.06em; }
+.coBtnKana{
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  letter-spacing: .12em;
+  color: rgba(15,15,16,.55);
+}
+
+.coBack{
+  display:inline-block;
+  margin-top: 12px;
+  text-decoration:none;
+  color: rgba(15,15,16,.65);
+  font-size: 12px;
+  letter-spacing:.06em;
+}
+
+@media (max-width: 900px){
+  .coMain{ padding-top: 84px; }
+  .coLayout{ grid-template-columns: 1fr; }
+  .coSummary{ position: static; }
+  .coGrid2{ grid-template-columns: 1fr; }
+}

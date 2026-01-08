@@ -1,0 +1,114 @@
+/* =========================
+   CONTEST (COMING SOON)
+   file: 21_contest_coming.css
+========================= */
+
+.ccs{
+  position: relative;
+  min-height: 100vh;
+  background: #0b0b0b;
+  color: #fff;
+  overflow: hidden;
+}
+
+/* 背景画像（ここだけ差し替えればOK） */
+.ccs__bg{
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: url("/contest/contest-coming-bg.png") center / cover no-repeat;
+  transform: scale(1.02);
+}
+
+/* 文字が読みやすくなる上品なベール */
+.ccs__veil{
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(1200px 700px at 20% 30%, rgba(0,0,0,.35), rgba(0,0,0,.82) 70%),
+    linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.82));
+}
+
+.ccs__inner{
+  position: relative;
+  z-index: 2;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 150px 24px 90px;
+}
+
+.ccs__kicker{
+  margin: 0 0 16px;
+  font-size: 12px;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.72);
+}
+
+.ccs__title{
+  margin: 0 0 18px;
+  font-family: "Yu Mincho", "Times New Roman", serif;
+  font-weight: 500;
+  letter-spacing: .08em;
+  font-size: 44px;
+}
+
+.ccs__lead{
+  margin: 0 0 26px;
+  font-size: 14px;
+  line-height: 2.1;
+  color: rgba(255,255,255,.82);
+  max-width: 52ch;
+}
+
+.ccs__actions{
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.ccs__btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.65);
+  background: rgba(0,0,0,.35);
+  color: #fff;
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
+  transition: transform .18s ease, filter .18s ease, border-color .18s ease;
+}
+.ccs__btn:hover{
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+  border-color: rgba(255,255,255,.9);
+}
+
+.ccs__link{
+  font-size: 12px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.78);
+  text-decoration: none;
+}
+.ccs__link:hover{ color: rgba(255,255,255,1); }
+
+.ccs__note{
+  margin: 46px 0 0;
+  font-size: 11px;
+  letter-spacing: .18em;
+  color: rgba(255,255,255,.45);
+}
+
+@media (max-width: 900px){
+  .ccs__inner{ padding: 120px 18px 76px; }
+  .ccs__title{ font-size: 34px; }
+}

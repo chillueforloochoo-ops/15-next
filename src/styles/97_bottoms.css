@@ -1,0 +1,272 @@
+/* =====================================================
+   BOTTOMS PAGE (GUCCI-like) - based on shirt.css
+===================================================== */
+
+.bottomsPage {
+  background: #f7f5f2;
+  color: #0f0f10;
+}
+
+/* header直下の余白を完全に消す */
+.bottomsMain {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* ================= GRID ================= */
+
+.bottomsGridSection {
+  max-width: 1120px;
+  margin: 40px auto 0;
+  padding: 0 20px;
+}
+
+.bottomsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.bottomsItem {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+
+  background: var(--card);                 /* ← 白カード */
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--card-border);    /* ← トークン化 */
+  box-shadow: var(--shadow-card);          /* ← トークン化 */
+
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+@media (hover:hover){
+  .bottomsItem:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card-hover);  /* ← ホバー時 */
+  }
+}
+
+/* ===== 画像の“舞台” ===== */
+.bottomsItem__image {
+  position: relative;
+  background: var(--stage-bg);             /* ← 上品な黒舞台 */
+  border-bottom: 1px solid var(--stage-border, rgba(255,255,255,.08));
+}
+
+/* 画像 */
+.bottomsItem__image img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;                      /* ← 輪郭優先 */
+  transition: transform .35s ease;
+}
+
+@media (hover:hover){
+  .bottomsItem:hover img {
+    transform: scale(1.03);
+  }
+}
+
+/* バッジ */
+.bottomsItem__badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.15em;
+  backdrop-filter: blur(2px);
+}
+
+.bottomsItem__info {
+  padding: 14px;
+}
+
+.bottomsItem__info .en {
+  display: block;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+}
+
+.bottomsItem__info .ja {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: rgba(15,15,16,0.55);
+}
+
+.bottomsItem__row {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: rgba(15,15,16,0.6);
+}
+
+/* ================= SP ================= */
+
+@media (max-width: 900px) {
+  .bottomsHero {
+    min-height: 64vh;
+  }
+
+  .bottomsHero__title {
+    font-size: 40px;
+  }
+
+  .bottomsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* =========================
+   BOTTOMS Filter (Segment)
+========================= */
+.bottomsFilterSection{
+  padding: 18px 0 10px;
+
+  /* フィルターを軽く固定（ヘッダー下に追従） */
+  position: sticky;
+  top: 84px;            /* ヘッダー高さに合わせて調整 */
+  z-index: 20;
+  background: rgba(247,245,242,.78); /* 背景色はサイトのベージュに寄せる */
+  backdrop-filter: blur(10px);
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.bottomsFilter{
+  display:flex;
+  gap: 10px;
+  align-items:center;
+
+  /* GUCCIっぽい“薄い台座” */
+  width: fit-content;
+  padding: 8px;
+  border-radius: 999px;
+  background: rgba(15,15,16,.04);
+  border: 1px solid rgba(15,15,16,.08);
+}
+
+.bottomsFilterBtn{
+  position: relative;
+  appearance:none;
+  background: transparent;
+  border: 0;
+  padding: 10px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  text-align:left;
+
+  display:flex;
+  flex-direction:column;
+  gap: 4px;
+
+  transition: background .18s ease, transform .18s ease;
+}
+
+.bottomsFilterBtn:hover{
+  background: rgba(15,15,16,.06);
+}
+
+.bottomsFilterBtn:active{
+  transform: translateY(1px);
+}
+
+.bottomsFilterBtn .en{
+  font-size: 12px;
+  letter-spacing: .18em;
+  color: rgba(15,15,16,.60);
+}
+
+.bottomsFilterBtn .ja{
+  font-size: 10px;
+  letter-spacing: .20em;
+  color: rgba(15,15,16,.38);
+}
+
+/* Active */
+.bottomsFilterBtn.is-active{
+  background: rgba(15,15,16,.88);
+}
+
+.bottomsFilterBtn.is-active .en{
+  color: rgba(255,255,255,.92);
+}
+
+.bottomsFilterBtn.is-active .ja{
+  color: rgba(255,255,255,.62);
+}
+
+/* ---- SP対応：横スクロールでも崩れない ---- */
+@media (max-width: 640px){
+  .bottomsFilter{
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .bottomsFilter::-webkit-scrollbar{ display:none; }
+  .bottomsFilterBtn{ white-space: nowrap; }
+}
+
+.bottomsEmpty{
+  margin: 28px 0 0;
+  display:flex;
+  flex-direction:column;
+  gap: 6px;
+  color: rgba(15,15,16,.55);
+  letter-spacing: .06em;
+}
+.bottomsEmpty .en{ font-size: 14px; letter-spacing: .16em; }
+.bottomsEmpty .ja{ font-size: 12px; letter-spacing: .18em; }
+/* =========================
+   BOTTOMS Tabs Row (same as SHIRT)
+========================= */
+.bottomsMain .tabsRow{
+  max-width: 1120px;
+  margin: 12px auto 0;
+  padding: 0 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 56px;
+}
+
+/* 右側（フィルター）だけ追従させたい場合 */
+.bottomsMain .bottomsFilterSection{
+  position: sticky;
+  top: 84px;
+  z-index: 20;
+  background: rgba(247,245,242,.86);
+  backdrop-filter: blur(12px);
+  padding: 12px 0;
+}
+
+@media (max-width: 640px){
+  .bottomsMain .tabsRow{
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 14px;
+  }
+  .bottomsMain .tabs{
+    margin: 0 auto;
+  }
+
+  /* SPはsticky解除（好みで） */
+  .bottomsMain .bottomsFilterSection{
+    position: static;
+    top: auto;
+    padding: 0;
+    background: transparent;
+    backdrop-filter: none;
+  }
+}
