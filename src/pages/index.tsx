@@ -192,28 +192,57 @@ useEffect(() => {
         <div className="grid-4">
     {/* Tシャツだけ先にリンク化 */}
 <Link href="/shirt" className="category-card">
-  <div className="category-thumb" />
+  <div className="category-thumb">
+    <img
+      className="category-img"
+      src="/category/shirt.png"
+      alt="SHIRT"
+      loading="lazy"
+    />
+  </div>
   <div className="category-label-en">SHIRT</div>
   <div className="category-label-ja">シャツ</div>
 </Link>
 
- <Link href="/hoodie" className="category-card">
-  <div className="category-thumb" />
+<Link href="/hoodie" className="category-card">
+  <div className="category-thumb">
+    <img
+      className="category-img"
+      src="/category/hoodie.png"
+      alt="HOODIE"
+      loading="lazy"
+    />
+  </div>
   <div className="category-label-en">HOODIE</div>
   <div className="category-label-ja">パーカー</div>
 </Link>
 
 <Link href="/jacket" className="category-card">
-  <div className="category-thumb" />
+  <div className="category-thumb">
+    <img
+      className="category-img"
+      src="/category/jacket.png"
+      alt="JACKET"
+      loading="lazy"
+    />
+  </div>
   <div className="category-label-en">JACKET</div>
   <div className="category-label-ja">ジャケット</div>
 </Link>
 
 <Link href="/bottoms" className="category-card">
-  <div className="category-thumb" />
+  <div className="category-thumb">
+    <img
+      className="category-img"
+      src="/category/bottoms.png"
+      alt="BOTTOMS"
+      loading="lazy"
+    />
+  </div>
   <div className="category-label-en">BOTTOMS</div>
-  <div className="category-label-ja">ボトム</div>
+  <div className="category-label-ja">ボトムス</div>
 </Link>
+
 
 
         </div>

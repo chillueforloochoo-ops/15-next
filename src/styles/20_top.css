@@ -269,6 +269,31 @@
   opacity: 1;
   transform: translateY(0);
 }
+/* ===== Image wrapper ===== */
+.category-thumb{
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  background: #f3f3f3;
+  margin-bottom: 10px;
+
+  overflow: hidden;
+}
+
+/* 追加：img本体 */
+.category-img{
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;        /* 背景の cover と同じ見え方 */
+  object-position: center;
+  transition: filter .3s ease, transform .35s ease;
+}
+
+/* hover効果（thumbに当ててたやつをimgに移す） */
+.category-card:hover .category-img{
+  filter: contrast(1.04) saturate(1.02);
+  /* transform: scale(1.03); ←ズーム欲しければON */
+}
 
 
 /* =========================
