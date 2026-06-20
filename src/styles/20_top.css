@@ -590,3 +590,105 @@
   #contest .contestCta:hover{ transform: translateY(-1px); }
 }
 #contest .contestCta:active{ transform: translateY(1px); }
+/* =========================
+   HERO RESPONSIVE FIX
+========================= */
+
+@media (max-width: 768px){
+
+  .hero{
+    height: 100svh;
+    min-height: 100svh;
+    background-size: cover;
+    background-position: 58% center;
+  }
+
+  .hero-bg{
+    background-position: 58% center;
+    background-size: cover;
+  }
+
+  .hero-veil{
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255,255,255,.62) 0%,
+        rgba(255,255,255,.38) 42%,
+        rgba(0,0,0,.18) 100%
+      );
+  }
+
+  .hero-copy{
+    width: 100%;
+    max-width: none;
+    height: 100%;
+
+    padding: 104px 20px 28px;
+
+    justify-content: flex-start;
+    overflow: hidden;
+  }
+
+  .hero-okn{
+    font-size: clamp(42px, 15vw, 58px);
+    line-height: .95;
+    letter-spacing: .16em;
+    white-space: nowrap;
+    transform: translateX(0);
+  }
+
+  .hero-sub{
+    margin-top: 10px;
+    font-size: clamp(14px, 4.2vw, 18px);
+    line-height: 1.25;
+  }
+
+  .hero-list{
+    margin-top: clamp(42px, 10vh, 76px);
+    font-size: clamp(18px, 5.3vw, 24px);
+    line-height: 1.32;
+  }
+
+  .hero-list li + li{
+    margin-top: 8px;
+  }
+
+  .hero-made{
+    margin-top: auto;
+    padding-top: 20px;
+    padding-right: 2px;
+
+    font-size: clamp(15px, 4vw, 18px);
+    text-align: right;
+  }
+}
+
+@media (max-width: 430px){
+
+  .hero-copy{
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .hero-okn{
+    font-size: clamp(39px, 14vw, 52px);
+    letter-spacing: .145em;
+  }
+
+  .hero-list{
+    font-size: clamp(17px, 5vw, 22px);
+  }
+}
+
+@media (max-width: 380px){
+
+  .hero-okn{
+    font-size: 37px;
+    letter-spacing: .12em;
+  }
+
+  .hero-copy{
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
