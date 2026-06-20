@@ -28,7 +28,7 @@ export default function SiteFooter() {
 
           <div className="footer-col">
             <div className="footer-title">ABOUT</div>
-            <Link className="footer-link" href="/about">15について</Link>
+            <Link className="footer-link" href="/concept">15について</Link>
             <Link className="footer-link" href="/contest">デザインコンテスト</Link>
             <Link className="footer-link" href="/privacy">プライバシー</Link>
           </div>

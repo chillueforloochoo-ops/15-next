@@ -1,45 +1,77 @@
+// src/pages/api/stripe/webhook.ts
 import type { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
-import { createClient } from "@supabase/supabase-js";
+import { supabaseAdmin } from "@/lib/supabaseAdmin.server";
 
-export const config = {
-  api: { bodyParser: false },
-};
+export const config = { api: { bodyParser: false } };
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string); // ✅ apiVersion指定しない
+// StripeはapiVersion固定推奨（将来の破壊的変更を避ける）
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
+  apiVersion: "2024-06-20" as any,
+});
 
-function buffer(readable: any): Promise<Buffer> {
-  return new Promise((resolve, reject) => {
-    const chunks: any[] = [];
-    readable.on("data", (chunk: any) => chunks.push(Buffer.from(chunk)));
-    readable.on("end", () => resolve(Buffer.concat(chunks)));
-    readable.on("error", reject);
-  });
+async function readBuffer(req: NextApiRequest): Promise<Buffer> {
+  const chunks: Uint8Array[] = [];
+  for await (const chunk of req) {
+    chunks.push(typeof chunk === "string" ? Buffer.from(chunk) : chunk);
+  }
+  return Buffer.concat(chunks);
 }
 
-// ✅ サーバー専用（Service Role）
-const supabaseAdmin = createClient(
-  process.env.SUPABASE_URL as string,
-  process.env.SUPABASE_SERVICE_ROLE_KEY as string
-);
+type ShipInfo = {
+  name: string | null;
+  phone: string | null;
+  postal: string | null;
+  pref: string | null;
+  city: string | null;
+  addr1: string | null;
+  addr2: string | null;
+};
+
+function pickShipping(session: Stripe.Checkout.Session): ShipInfo {
+  const s = session as any;
+
+  // StripeのUI/設定差で揺れるポイントを全部カバー
+  const ci = s.collected_information ?? null;
+  const sd = ci?.shipping_details ?? s.shipping_details ?? null;
+  const cd = s.customer_details ?? null;
+
+  const name: string | null = sd?.name ?? cd?.name ?? null;
+  const phone: string | null = cd?.phone ?? null;
+
+  const addr = sd?.address ?? cd?.address ?? null;
+
+  return {
+    name,
+    phone,
+    postal: addr?.postal_code ?? null,
+    pref: addr?.state ?? null,
+    city: addr?.city ?? null,
+    addr1: addr?.line1 ?? null,
+    addr2: addr?.line2 ?? null,
+  };
+}
+
+function toJPYUpper(cur: string | null | undefined) {
+  return (cur ?? "jpy").toUpperCase();
+}
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") return res.status(405).send("Method Not Allowed");
 
-  const sig = req.headers["stripe-signature"];
-  if (!sig || typeof sig !== "string") return res.status(400).send("Missing stripe-signature");
-
   const whsec = process.env.STRIPE_WEBHOOK_SECRET;
   if (!whsec) return res.status(500).send("Missing STRIPE_WEBHOOK_SECRET");
 
-  let event: Stripe.Event;
+  const sig = req.headers["stripe-signature"];
+  if (!sig || typeof sig !== "string") return res.status(400).send("Missing stripe-signature");
 
+  let event: Stripe.Event;
   try {
-    const rawBody = await buffer(req);
+    const rawBody = await readBuffer(req);
     event = stripe.webhooks.constructEvent(rawBody, sig, whsec);
   } catch (err: any) {
-    console.error("[stripe-webhook] signature verify failed:", err?.message);
-    return res.status(400).send(`Webhook Error: ${err?.message}`);
+    console.error("[stripe-webhook] Signature verification failed:", err?.message ?? err);
+    return res.status(400).send(`Webhook Error: ${err?.message ?? "invalid signature"}`);
   }
 
   try {
@@ -49,96 +81,61 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const session = event.data.object as Stripe.Checkout.Session;
 
-    // ✅ paid以外はスキップ（カード決済ならほぼpaid）
+    // paid のみ処理
     if (session.payment_status !== "paid") {
       return res.status(200).json({ received: true, skipped: true });
     }
 
-    const stripeSessionId = session.id;
+    const ship = pickShipping(session);
 
-    // ✅ line_items を取りに行く（商品名/qty/価格/metadata）
-    const lineItems = await stripe.checkout.sessions.listLineItems(stripeSessionId, {
-      limit: 100,
-      expand: ["data.price.product"],
-    });
+    // 金額・通貨・メール（←ここが total NULL を潰す）
+    const s: any = session as any;
+    const email: string | null =
+      s.customer_details?.email ?? s.customer_email ?? null;
 
-    const email =
-      session.customer_details?.email ??
-      session.customer_email ??
-      "";
+    const subtotal: number | null = typeof s.amount_subtotal === "number" ? s.amount_subtotal : null;
+    const total: number | null = typeof s.amount_total === "number" ? s.amount_total : null;
 
-    const total = session.amount_total ?? 0;
+    // total_details から拾えるなら拾う（無ければ 0 扱い）
+    const shipping: number = typeof s.total_details?.amount_shipping === "number" ? s.total_details.amount_shipping : 0;
+    const tax: number = typeof s.total_details?.amount_tax === "number" ? s.total_details.amount_tax : 0;
 
-    // ✅ ① orders を upsert（冪等）
-    // stripe_session_id が unique なので、何回Webhookが来ても同じ1行に収束する
-    const { data: order, error: orderErr } = await supabaseAdmin
-      .from("orders")
-      .upsert(
-        {
-          stripe_session_id: stripeSessionId,
-          order_number: stripeSessionId, // 後で採番を整えてもOK
-          email,
-          subtotal: session.amount_subtotal ?? null,
-          shipping: null,
-          tax: null,
-          total,
-          currency: (session.currency ?? "jpy").toUpperCase(),
-          status: session.payment_status, // "paid" をそのまま入れるのが一番ラク
-          placed_at: new Date().toISOString(),
-        },
-        { onConflict: "stripe_session_id" }
-      )
-      .select("id")
-      .single();
-
-    if (orderErr) throw orderErr;
-
-    // ✅ ② order_items は一旦削除して入れ直し（冪等）
-    const { error: delErr } = await supabaseAdmin
-      .from("order_items")
-      .delete()
-      .eq("order_id", order.id);
-
-    if (delErr) throw delErr;
-
-    const itemsPayload = lineItems.data.map((li) => {
-      const qty = li.quantity ?? 1;
-
-      // unit_price は price.unit_amount があればそれを優先
-      const unit =
-        li.price?.unit_amount != null
-          ? li.price.unit_amount
-          : li.amount_subtotal != null
-            ? Math.round(li.amount_subtotal / qty)
-            : 0;
-
-      const product = li.price?.product as Stripe.Product | null;
-      const meta = (product?.metadata ?? {}) as Record<string, string>;
-
-      return {
-        order_id: order.id,
-        product_id: meta.productId || null,
-        variant_id: null, // 後で size+color などを入れたいなら metadata を増やす
-        product_name: product?.name ?? li.description ?? meta.slug ?? "Item",
-        size_label: meta.size || null,
-        unit_price: unit,
-        qty,
-        line_total: unit * qty,
-      };
-    });
-
-    if (itemsPayload.length > 0) {
-      const { error: itemsErr } = await supabaseAdmin
-        .from("order_items")
-        .insert(itemsPayload);
-
-      if (itemsErr) throw itemsErr;
+    // ここで total が null だったら DB が落ちるのでガード
+    if (total == null) {
+      console.error("[stripe-webhook] Missing amount_total on session:", session.id);
+      return res.status(500).send("Missing amount_total on session");
     }
 
-    return res.status(200).json({ received: true });
+    // subtotal が null の場合は total で代用（割引/税/送料が0の想定ならこれでOK）
+    const safeSubtotal = subtotal ?? total;
+
+    const { data, error } = await supabaseAdmin.rpc("handle_checkout_completed_v1", {
+      p_event_id: event.id,
+      p_event_type: event.type,
+      p_session_id: session.id,
+      p_payload: { created: event.created, livemode: event.livemode },
+
+      p_email: email,
+      p_currency: toJPYUpper(session.currency),
+      p_subtotal: safeSubtotal,
+      p_shipping: shipping,
+      p_tax: tax,
+      p_total: total,
+
+      p_ship_name: ship.name,
+      p_ship_phone: ship.phone,
+      p_ship_postal: ship.postal,
+      p_ship_pref: ship.pref,
+      p_ship_city: ship.city,
+      p_ship_addr1: ship.addr1,
+      p_ship_addr2: ship.addr2,
+    });
+
+    if (error) throw error;
+
+    return res.status(200).json({ received: true, result: data?.[0] ?? null });
   } catch (err: any) {
-    console.error("[stripe-webhook] ERROR:", err?.message || err);
-    // 2xx以外だとStripeが再送する。原因調査したい時は500でOK
-    return res.status(500).send("Webhook handler failed");
+    console.error("[stripe-webhook] ERROR:", err?.message ?? err);
+    return res.status(500).send(err?.message ?? "Webhook handler failed");
   }
 }

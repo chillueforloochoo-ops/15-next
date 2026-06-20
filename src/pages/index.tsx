@@ -143,6 +143,22 @@ useEffect(() => {
   items.forEach((el) => io.observe(el));
   return () => io.disconnect();
 }, []);
+// 追加：SPのvhブレ対策（iOS/Android共通）
+useEffect(() => {
+  const setVh = () => {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  };
+
+  setVh();
+  window.addEventListener("resize", setVh, { passive: true });
+  window.addEventListener("orientationchange", setVh, { passive: true });
+
+  return () => {
+    window.removeEventListener("resize", setVh);
+    window.removeEventListener("orientationchange", setVh);
+  };
+}, []);
 
   return (
     <>

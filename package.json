@@ -10,10 +10,11 @@
   },
   "dependencies": {
     "@stripe/stripe-js": "^8.5.3",
+    "@supabase/supabase-js": "^2.90.1",
     "next": "16.0.8",
     "react": "19.2.1",
     "react-dom": "19.2.1",
-    "stripe": "^20.0.0"
+    "stripe": "^20.1.2"
   },
   "devDependencies": {
     "@types/node": "^20",

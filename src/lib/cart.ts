@@ -1,14 +1,20 @@
+
 // src/lib/cart.ts
 export type CartItem = {
-  id: string;            // product id
-  slug: string;          // category slug e.g. "tshirt"
+  variant_id: string;
+
+  id: string;
+  slug: string;
+
   name: string;
-  nameJa?: string;
-  price: number;         // number in JPY (e.g. 3800)
-  image: string;         // image path
-  size: string;          // "S" "M" "L" ...
-  qty: number;           // quantity
+  nameJa?: string; // ★追加
+  image: string;
+
+  price: number;
+  qty: number;
+  size: string;
 };
+
 
 const KEY = "fifteen_cart_v1";
 

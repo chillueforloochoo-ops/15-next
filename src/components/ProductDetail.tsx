@@ -108,15 +108,20 @@ export default function ProductDetailView({
                 if (isSoldOut || !selectedSize) return;
 
                 addItem({
-                  id: product.id,
-                  slug: categoryKey, // ★ここにカテゴリを入れる
-                  name: product.name,
-                  nameJa: product.nameJa,
-                  price: Number(String(product.price).replace(/[^\d]/g, "")) || 0,
-                  image: product.images[0],
-                  size: selectedSize,
-                  qty: 1,
-                });
+  variant_id: "60fdcea5-9bea-451c-a2d2-1dbcfe940749", // ★追加（テスト用固定）
+
+  id: product.id,
+  slug: categoryKey, // ★ここにカテゴリを入れる（現状維持）
+  name: product.name,
+  nameJa: product.nameJa,
+
+  price: Number(String(product.price).replace(/[^\d]/g, "")) || 0,
+  image: product.images?.[0] ?? "",
+
+  size: selectedSize,
+  qty: 1,
+});
+
 
                 router.push("/bag");
               }}

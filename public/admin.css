@@ -1,0 +1,1029 @@
+/* =========================================================
+  15 Admin UI — admin.css (scoped by .adminRoot)
+  - No impact on public site
+  - Easy to extend (sections + utility)
+========================================================= */
+
+/* =========================================================
+  0) Scope + Tokens
+========================================================= */
+.adminRoot{
+  /* color tokens */
+  --bg:#0f0f10;
+  --panel:#121214;
+  --line:rgba(255,255,255,.10);
+  --text:rgba(255,255,255,.86);
+  --muted:rgba(255,255,255,.55);
+
+  --panel2:rgba(255,255,255,.02);
+  --panel3:rgba(255,255,255,.03);
+  --line2:rgba(255,255,255,.12);
+  --line3:rgba(255,255,255,.06);
+
+  /* radius */
+  --radius-lg:18px;
+  --radius-md:16px;
+  --radius-sm:12px;
+
+  /* shadow */
+  --shadow:0 22px 70px rgba(0,0,0,.45);
+
+  /* common sizes */
+  --container:1200px;
+
+  min-height:100vh;
+  background:var(--bg);
+  color:var(--text);
+  padding:0; /* safety */
+}
+
+.adminRoot,
+.adminRoot *{ box-sizing:border-box; }
+
+.adminRoot a{ color:inherit; text-decoration:none; }
+.adminRoot img{ display:block; max-width:100%; }
+
+.adminRoot :where(button,input,select,textarea){
+  font: inherit;
+}
+
+/* =========================================================
+  1) Utilities (small, reusable)
+========================================================= */
+.adminRoot .mono{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+}
+.adminRoot .muted{ color:var(--muted); }
+.adminRoot .right{ text-align:right; }
+.adminRoot .nowrap{ white-space:nowrap; }
+.adminRoot .srOnly{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden;
+  clip:rect(0,0,0,0); border:0;
+}
+
+/* =========================================================
+  2) Layout + Header
+========================================================= */
+.adminRoot .aLayout{
+  max-width:var(--container);
+  margin:0 auto;
+  padding:34px 18px 60px;
+}
+
+.adminRoot .aTop{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:18px;
+  margin-bottom:18px;
+}
+
+.adminRoot .aKicker{
+  font-size:11px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.60);
+}
+
+.adminRoot .aTitle{
+  margin:6px 0 0;
+  font-size:34px;
+  letter-spacing:.01em;
+}
+
+.adminRoot .aSub{
+  margin-top:6px;
+  font-size:12px;
+  color:var(--muted);
+}
+
+.adminRoot .aTopRight{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.adminRoot .aBack{
+  display:inline-block;
+  margin-bottom:8px;
+  font-size:12px;
+  letter-spacing:.08em;
+  color:rgba(255,255,255,.70);
+  opacity:.9;
+}
+.adminRoot .aBack:hover{ color:#fff; opacity:1; }
+
+/* buttons */
+.adminRoot .aGhost{
+  height:36px;
+  padding:0 14px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.02);
+  color:rgba(255,255,255,.86);
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  cursor:pointer;
+}
+.adminRoot .aGhost:hover{ background:rgba(255,255,255,.03); }
+.adminRoot .aGhost:disabled{ opacity:.6; cursor:not-allowed; }
+
+.adminRoot .aBtn{
+  width:100%;
+  height:46px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.18);
+  background:#fff;
+  color:#0f0f10;
+  font-size:12px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  cursor:pointer;
+}
+.adminRoot .aBtn:disabled{ opacity:.6; cursor:not-allowed; }
+
+/* =========================================================
+  3) Forms (inputs/select/search)
+========================================================= */
+.adminRoot .aLabel{
+  display:block;
+  font-size:12px;
+  color:rgba(255,255,255,.70);
+  letter-spacing:.08em;
+}
+
+.adminRoot .aInput,
+.adminRoot .aSearch{
+  width:100%;
+  margin-top:8px;
+  background:rgba(255,255,255,.03);
+  border:1px solid var(--line2);
+  border-radius:var(--radius-sm);
+  padding:12px 12px;
+  color:var(--text);
+  outline:none;
+}
+
+.adminRoot .aInput:focus,
+.adminRoot .aSearch:focus{
+  border-color:rgba(255,255,255,.24);
+}
+
+.adminRoot .aToolbar{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  margin:18px 0 16px;
+}
+.adminRoot .aSearch{ flex:1; }
+
+/* =========================================================
+  3-1) Native <select> (fallback only)
+  - 旧UI / 置換しきってない画面のための最低限
+  - Windows/Chromeは option の白飛びを完全に止められないので
+    ここは「なるべくマシにする」まで
+========================================================= */
+.adminRoot .aSelect{
+  width:220px;
+  margin-top:8px;
+  background:rgba(255,255,255,.03);
+  border:1px solid var(--line2);
+  border-radius:var(--radius-sm);
+  padding:12px 12px;
+  color:rgba(255,255,255,.88);
+  outline:none;
+
+  /* OS描画を“ダーク寄り”に寄せる（完全解決ではない） */
+  color-scheme: dark;
+}
+.adminRoot .aSelect:focus{
+  border-color:rgba(255,255,255,.24);
+}
+
+/* option は効く環境だけ効く（効かない環境がある前提） */
+.adminRoot .aSelect option,
+.adminRoot .aSelect optgroup{
+  background:#121214;
+  color:rgba(255,255,255,.90);
+}
+
+/* =========================================================
+  3-2) AdminSelect (custom) — white-flash 0
+  - 今後はこれが正
+========================================================= */
+.adminRoot .aSelectRoot{ position:relative; }
+
+.adminRoot .aSelectBtn{
+  width:100%;
+  margin-top:8px;
+  height:46px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+
+  background:rgba(255,255,255,.03);
+  border:1px solid var(--line2);
+  border-radius:var(--radius-sm);
+  padding:0 12px;
+  color:var(--text);
+  cursor:pointer;
+}
+
+.adminRoot .aSelectBtn:focus{
+  outline:none;
+  border-color:rgba(255,255,255,.24);
+}
+
+.adminRoot .aSelectRoot.isDisabled .aSelectBtn,
+.adminRoot .aSelectBtn:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+.adminRoot .aSelectBtnLabel{
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:13px;
+}
+
+.adminRoot .aSelectChevron{
+  opacity:.7;
+  font-size:11px;
+  transform: translateY(-1px);
+}
+
+.adminRoot .aSelectMenu{
+  position:absolute;
+  z-index:50;
+  left:0;
+  right:0;
+  top:calc(100% + 8px);
+
+  border:1px solid rgba(255,255,255,.12);
+  background:#121214;
+  border-radius:14px;
+  padding:8px;
+  box-shadow:0 22px 70px rgba(0,0,0,.45);
+  overflow:hidden;
+}
+
+.adminRoot .aSelectOption{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+
+  padding:12px 12px;
+  border-radius:12px;
+  border:0;
+  background:transparent;
+  color:rgba(255,255,255,.88);
+  cursor:pointer;
+  text-align:left;
+}
+
+.adminRoot .aSelectOption:hover{
+  background:rgba(255,255,255,.08);
+  color:#fff;
+}
+
+.adminRoot .aSelectOption.isSelected{
+  background:rgba(255,255,255,.14);
+  color:#fff;
+}
+
+.adminRoot .aSelectCheck{
+  opacity:.9;
+}
+/* Portal版：必ずfixedで表示（パネルのoverflow無視） */
+.adminRoot .aSelectMenu--portal{
+  z-index: 9999;
+}
+/* ===========================
+   AdminSelect (Portal) Visual Fix
+   - 透けない
+   - 文字が白
+   - 枠がくっきり
+=========================== */
+.adminRoot .aSelectMenu--portal{
+  background: #121214 !important;           /* 透け防止 */
+  color: rgba(255,255,255,.92) !important;  /* 文字を白寄りに固定 */
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 14px;
+  box-shadow: 0 22px 70px rgba(0,0,0,.55);
+  overflow: hidden;
+
+  /* 下のUIが透けて見える原因が "opacity/filter" 系ならこれで殺す */
+  opacity: 1 !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* リスト全体のパディングが薄いなら整える */
+.adminRoot .aSelectMenu--portal .aSelectList{
+  padding: 6px;
+}
+
+/* Portal は .adminRoot の外に出るので body.is-admin で当てる */
+body.is-admin .aSelectMenu--portal{
+  background:#121214;
+  color: rgba(255,255,255,.92);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:14px;
+  box-shadow:0 22px 70px rgba(0,0,0,.55);
+  overflow:hidden;
+
+  /* 透明化/ぼかし系がどこかで当たってても殺す */
+  opacity: 1;
+  filter: none;
+  backdrop-filter: none;
+}
+
+body.is-admin .aSelectMenu--portal .aSelectList{
+  margin:0;
+  padding:6px;
+  list-style:none;
+  max-height: 240px;
+  overflow:auto;
+}
+
+body.is-admin .aSelectMenu--portal .aSelectOption{
+  color: rgba(255,255,255,.90);
+  background: transparent;
+}
+
+body.is-admin .aSelectMenu--portal .aSelectOption:hover{
+  background: rgba(255,255,255,.08);
+}
+
+body.is-admin .aSelectMenu--portal .aSelectOption.isSelected{
+  background: rgba(255,255,255,.14);
+  color:#fff;
+}
+
+/* =========================================================
+  4) Panels (base card)
+========================================================= */
+.adminRoot .aPanel{
+  border:1px solid var(--line);
+  border-radius:var(--radius-md);
+  background:var(--panel2);
+  padding:16px;
+}
+.adminRoot .aPanelTitle{
+  font-size:11px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.60);
+  margin-bottom:12px;
+}
+
+.adminRoot .aEmpty{
+  padding:22px;
+  color:var(--muted);
+}
+
+/* =========================================================
+  5) Dashboard — Top Nav Cards
+========================================================= */
+.adminRoot .aDashNav{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap:12px;
+  margin:10px 0 14px;
+}
+
+.adminRoot .aNavCard{
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:rgba(255,255,255,.02);
+  padding:16px;
+  transition: transform .12s ease, background .12s ease;
+}
+.adminRoot .aNavCard:hover{
+  background:rgba(255,255,255,.03);
+  transform: translateY(-1px);
+}
+.adminRoot .aNavTitle{ font-size:16px; letter-spacing:.02em; }
+.adminRoot .aNavSub{ margin-top:6px; font-size:12px; color:var(--muted); }
+
+/* =========================================================
+  6) Dashboard — KPI grid
+========================================================= */
+.adminRoot .aDashGrid{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap:12px;
+}
+
+.adminRoot .aKpiRow{ display:flex; gap:12px; }
+.adminRoot .aKpi{
+  flex:1;
+  border-top:1px solid rgba(255,255,255,.06);
+  padding-top:12px;
+}
+.adminRoot .aKpiLabel{
+  font-size:11px;
+  color:var(--muted);
+  letter-spacing:.08em;
+}
+.adminRoot .aKpiValue{
+  margin-top:6px;
+  font-size:26px;
+  letter-spacing:.01em;
+}
+
+/* =========================================================
+  7) Dashboard — Mid Todo cards (2 cards)
+========================================================= */
+.adminRoot .aTodoGrid{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap:12px;
+}
+
+.adminRoot .aTodoCard{
+  display:block;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:18px;
+  background:rgba(255,255,255,.02);
+  padding:16px;
+  transition: transform .12s ease, background .12s ease;
+}
+.adminRoot .aTodoCard:hover{
+  background:rgba(255,255,255,.03);
+  transform: translateY(-1px);
+}
+
+.adminRoot .aTodoTop{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+}
+.adminRoot .aTodoTitle{
+  font-size:12px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.70);
+}
+.adminRoot .aTodoSub{
+  margin-top:6px;
+  font-size:12px;
+}
+.adminRoot .aTodoCount{
+  font-size:28px;
+  line-height:1;
+  letter-spacing:.02em;
+  color:rgba(255,255,255,.92);
+}
+
+.adminRoot .aTodoThumbs{
+  display:flex;
+  gap:8px;
+  margin-top:12px;
+}
+.adminRoot .aThumb{
+  width:34px;
+  height:34px;
+  border-radius:8px;
+  overflow:hidden;
+  background:rgba(255,255,255,.06);
+  flex:0 0 auto;
+}
+.adminRoot .aThumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.adminRoot .aThumbPh{
+  width:34px;
+  height:34px;
+  border-radius:8px;
+  background:rgba(255,255,255,.08);
+}
+
+.adminRoot .aTodoBadges{
+  display:flex;
+  gap:8px;
+  margin-top:12px;
+  flex-wrap:wrap;
+}
+.adminRoot .aBadge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  height:26px;
+  padding:0 10px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.03);
+  color:rgba(255,255,255,.82);
+  font-size:12px;
+}
+.adminRoot .aBadge b{ color:rgba(255,255,255,.92); font-weight:600; }
+
+.adminRoot .aTodoCtaRow{
+  margin-top:12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+.adminRoot .aTodoCta{
+  font-size:12px;
+  letter-spacing:.08em;
+  color:rgba(255,255,255,.86);
+}
+.adminRoot .aTodoMeta{
+  font-size:12px;
+  color:var(--muted);
+}
+/* ===== Dashboard mid cards (Todo) ===== */
+.adminRoot .aMidGrid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:14px;
+}
+
+.adminRoot .aTodoCard{
+  border:1px solid var(--line);
+  border-radius:var(--radius-lg);
+  background:rgba(255,255,255,.02);
+  padding:16px;
+  overflow:hidden;
+}
+
+.adminRoot .aTodoHead{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.adminRoot .aTodoTitle{
+  font-size:12px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.72);
+}
+
+.adminRoot .aTodoSub{
+  margin-top:6px;
+  font-size:12px;
+  color:var(--muted);
+}
+
+.adminRoot .aTodoRight{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.adminRoot .aTodoCount{
+  font-size:28px;
+  line-height:1;
+  letter-spacing:.02em;
+}
+
+.adminRoot .aGhost--sm{
+  height:30px;
+  padding:0 12px;
+  font-size:10px;
+  letter-spacing:.12em;
+}
+
+.adminRoot .aTodoThumbs{
+  display:flex;
+  gap:8px;
+  margin-top:12px;
+}
+
+.adminRoot .aTodoThumb{
+  width:34px;
+  height:34px;
+  border-radius:8px;
+}
+
+.adminRoot .aThumbPh{
+  width:34px;
+  height:34px;
+  border-radius:8px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.06);
+}
+
+.adminRoot .aTodoFoot{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:12px;
+}
+
+.adminRoot .aTodoCta{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-size:12px;
+  color:rgba(255,255,255,.85);
+  padding:8px 0;
+}
+
+.adminRoot .aTodoBadges{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+
+.adminRoot .aBadge{
+  display:inline-flex;
+  align-items:center;
+  height:26px;
+  padding:0 10px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.03);
+  font-size:11px;
+  color:rgba(255,255,255,.82);
+}
+
+/* expand list */
+.adminRoot .aTodoExpand{
+  margin-top:12px;
+  border-top:1px solid rgba(255,255,255,.06);
+  padding-top:12px;
+}
+
+.adminRoot .aTodoExpandTop{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:10px;
+}
+
+.adminRoot .aTodoList{
+  display:grid;
+  gap:8px;
+}
+
+.adminRoot .aTodoRow{
+  display:grid;
+  grid-template-columns: 28px 1fr 18px;
+  gap:12px;
+  align-items:center;
+  padding:10px 10px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;
+  background:rgba(255,255,255,.02);
+}
+
+.adminRoot .aTodoRow:hover{
+  background:rgba(255,255,255,.03);
+}
+
+.adminRoot .aTodoMain{ min-width:0; }
+
+.adminRoot .aTodoMainTop{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.adminRoot .aTodoId{
+  font-size:12px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width: 240px;
+}
+
+.adminRoot .aTodoAmount{
+  font-size:12px;
+  white-space:nowrap;
+  color:rgba(255,255,255,.85);
+}
+
+.adminRoot .aTodoMeta{
+  margin-top:4px;
+  font-size:11px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.adminRoot .aDot{ margin: 0 8px; opacity:.5; }
+
+.adminRoot .aTodoGo{
+  text-align:right;
+  font-size:14px;
+}
+
+.adminRoot .aTodoFooter{
+  margin-top:6px;
+  padding-top:6px;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+
+/* responsive */
+@media (max-width: 980px){
+  .adminRoot .aMidGrid{
+    grid-template-columns: 1fr;
+  }
+  .adminRoot .aTodoId{ max-width: 180px; }
+}
+/* ========================================
+  Stage pill (dashboard display only)
+======================================== */
+.adminRoot .aStagePill{
+  display:inline-flex;
+  align-items:center;
+  padding:2px 8px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.03);
+  font-size:11px;
+  letter-spacing:.04em;
+  color:rgba(255,255,255,.82);
+  white-space:nowrap;
+}
+/* ========================================
+  Ghost button for secondary actions
+======================================== */
+.adminRoot .aBtn--ghost{
+  background: rgba(255,255,255,.02);
+  color: rgba(255,255,255,.86);
+  border:1px solid rgba(255,255,255,.18);
+}
+
+.adminRoot .aBtn--ghost:hover{
+  background: rgba(255,255,255,.03);
+}
+
+/* =========================================================
+  8) Dashboard — Bottom (Top SKU list)
+========================================================= */
+.adminRoot .aTopSkuList{ display:grid; gap:8px; }
+
+.adminRoot .aTopSkuRow{
+  display:grid;
+  grid-template-columns: 36px 1fr 60px;
+  gap:12px;
+  align-items:center;
+  padding:10px 0;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.adminRoot .orderThumb{
+  width:28px;
+  height:28px;
+  border-radius:6px;
+  overflow:hidden;
+  background:rgba(255,255,255,.06);
+}
+.adminRoot .orderThumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.adminRoot .orderThumbPh{
+  width:100%;
+  height:100%;
+  background:rgba(255,255,255,.08);
+}
+
+.adminRoot .aTopSkuName{ font-size:13px; }
+.adminRoot .aTopSkuMeta{ font-size:12px; margin-top:3px; }
+.adminRoot .aTopSkuQty{ font-size:13px; }
+
+/* =========================================================
+  9) Orders table
+========================================================= */
+.adminRoot .aTableWrap{
+  border:1px solid var(--line);
+  border-radius:var(--radius-md);
+  overflow:hidden;
+  background:var(--panel2);
+}
+
+.adminRoot .aTableHead,
+.adminRoot .aRow{
+  display:grid;
+  grid-template-columns: 1.3fr .9fr .8fr 1.2fr .6fr;
+  gap:12px;
+  padding:14px 14px;
+}
+
+.adminRoot .aTableHead{
+  background:var(--panel3);
+  border-bottom:1px solid var(--line);
+  font-size:11px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.60);
+}
+
+.adminRoot .aRow{
+  border-bottom:1px solid var(--line3);
+  font-size:13px;
+}
+.adminRoot .aRow:hover{ background:rgba(255,255,255,.03); }
+
+.adminRoot .aRow--withThumb{
+  grid-template-columns: 36px 1.3fr .9fr .8fr 1.2fr .6fr;
+}
+
+/* status pill */
+.adminRoot .aPill{
+  display:inline-flex;
+  align-items:center;
+  height:22px;
+  padding:0 10px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.04);
+  font-size:11px;
+  letter-spacing:.08em;
+}
+
+/* =========================================================
+  10) Order detail
+========================================================= */
+.adminRoot .aDetailGrid{
+  display:grid;
+  grid-template-columns: 1.6fr .9fr;
+  gap:14px;
+}
+
+.adminRoot .aItems{ display:grid; gap:10px; }
+.adminRoot .aItemRow{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:10px 0;
+  border-bottom:1px solid var(--line3);
+}
+.adminRoot .aItemName{ font-size:13px; }
+.adminRoot .aItemMeta{ font-size:12px; margin-top:4px; }
+.adminRoot .aTotal{
+  display:flex;
+  justify-content:space-between;
+  padding-top:12px;
+}
+
+.adminRoot .aField{ margin-bottom:12px; }
+.adminRoot .aKv{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:10px 0;
+  border-bottom:1px solid var(--line3);
+}
+.aTab{
+  appearance:none;
+  border:1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04);
+  color: rgba(255,255,255,.70);
+  padding: 10px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.aTab.isActive{
+  background: rgba(255,255,255,.14);
+  color: rgba(255,255,255,.95);
+  border-color: rgba(255,255,255,.18);
+}
+
+/* =========================================================
+  11) Inventory (hooks for later)
+  - ここは「今後増やす」前提で枠だけ用意
+========================================================= */
+.adminRoot .invGrid{
+  display:grid;
+  grid-template-columns: 340px 1fr;
+  gap:14px;
+  margin-top:18px;
+}
+.adminRoot .invLeft{
+  border:1px solid var(--line);
+  border-radius:var(--radius-md);
+  background:var(--panel2);
+  overflow:hidden;
+}
+.adminRoot .invRight{ min-width:0; }
+/* =========================================================
+  11) Toast
+========================================================= */
+
+.aToast{
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px 14px;
+  border-radius: 14px;
+
+  background: rgba(20, 20, 20, 0.92);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+
+  color: rgba(255,255,255,0.92);
+  font-size: 14px;
+
+  backdrop-filter: blur(10px);
+
+  animation: aToastIn 180ms ease-out forwards;
+}
+/* 主情報（商品名など） */
+.adminRoot .aStrong {
+  color: rgba(255,255,255,.92);
+}
+
+/* 数字（在庫・引当・販売可） */
+.adminRoot .aNum {
+  color: rgba(255,255,255,.92);
+  font-weight: 800;
+  letter-spacing: .02em;
+}
+
+/* 低在庫ピル */
+.adminRoot .aPill.s-low {
+  background: rgba(255, 200, 0, 0.14);
+  color: rgba(255,255,255,.92);
+  border: 1px solid rgba(255, 200, 0, 0.42);
+}
+
+/* 欠品ピル */
+.adminRoot .aPill.s-out {
+  background: rgba(255, 80, 80, 0.16);
+  color: rgba(255,255,255,.94);
+  border: 1px solid rgba(255, 80, 80, 0.45);
+}
+
+.aToastIcon{
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+
+  display: grid;
+  place-items: center;
+
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.12);
+
+  font-weight: 700;
+  font-size: 13px;
+}
+.aPill.s-out {
+  background: rgba(255, 80, 80, 0.15);
+  color: #ff6b6b;
+  border: 1px solid rgba(255, 80, 80, 0.35);
+}
+.aBtn--danger {
+  border: 1px solid #ff5a5a;
+  color: #ff5a5a;
+}
+.aBtn--danger:hover {
+  background: rgba(255, 90, 90, 0.08);
+}
+
+@keyframes aToastIn{
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================================
+  12) Responsive
+========================================================= */
+@media (max-width: 980px){
+  .adminRoot .aToolbar{ flex-direction:column; align-items:stretch; }
+  .adminRoot .aSelect{ width:100%; }
+
+  .adminRoot .aDashNav{ grid-template-columns:1fr; }
+  .adminRoot .aDashGrid{ grid-template-columns:1fr; }
+
+  .adminRoot .aTodoGrid{ grid-template-columns:1fr; }
+
+  .adminRoot .aDetailGrid{ grid-template-columns:1fr; }
+
+  .adminRoot .aTableHead,
+  .adminRoot .aRow{
+    grid-template-columns: 1.1fr .9fr .9fr 1.2fr .7fr;
+  }
+}

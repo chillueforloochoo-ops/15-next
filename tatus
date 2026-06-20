@@ -1,0 +1,12 @@
+[33mcommit 04f4df27dee61305aafa83844bb58e7d58309908[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Chillue For Loochoo <chiluueforloochoo@chilluefoeloochoo.com>
+Date:   Sun Jan 11 09:07:09 2026 +0900
+
+    update home categories and assets
+
+public/category/bottoms.png
+public/category/hoodie.png
+public/category/jacket.png
+public/category/shirt.png
+src/pages/index.tsx
+src/styles/20_top.css

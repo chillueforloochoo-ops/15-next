@@ -5,9 +5,11 @@
 /* HERO BASE */
 .hero{
   position: relative;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100); /* ←ここが肝 */
+  min-height: 100svh;                 /* 対応ブラウザは安定 */
   overflow: hidden;
 }
+
 
 /* 背景写真 */
 .hero-bg{
@@ -328,50 +330,6 @@
     grid-template-columns: 1fr;
   }
 }
-
-
-/* =========================
-   HOT ITEM VIEW
-========================= */
-
-.hotSection{
-  padding: 90px 0;
-}
-
-.hotHead{
-  max-width: 1120px;
-  margin: 0 auto 26px;
-  padding: 0 20px;
-  text-align: left;
-}
-
-.hotTitle{
-  margin: 0;
-  font-size: 18px;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-}
-
-.hotSub{
-  margin: 8px 0 0;
-  font-size: 13px;
-  color: var(--c-midgray);
-}
-
-.hotWrapper{
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-/* =========================
-   HOT ITEM VIEW（枠なし版）
-========================= */
-
-/* =========================
-   HOT ITEM VIEW - Focus In (A)
-========================= */
-
 /* 枠っぽさが出ない舞台 */
 .hotStage{
   position: relative;
@@ -382,56 +340,40 @@
   min-height: 520px;
   display: grid;
   place-items: center;
+
+  contain: layout paint; /* ←追加：描画範囲を閉じて軽くする */
 }
 
-/* 画像：最初は少しボケ＋少し大きい＋少し下 */
+/* 画像：blurアニメをやめて軽く */
 .hotImg{
   width: min(560px, 82%);
   height: auto;
-  filter:
-    blur(6px)
-    drop-shadow(0 30px 60px rgba(0,0,0,.18))
-    drop-shadow(0 14px 28px rgba(0,0,0,.10));
+
   opacity: 0;
-  transform: translateY(10px) scale(1.035);
+  transform: translate3d(0, 14px, 0) scale(1.02);
+
+  filter:
+    drop-shadow(0 30px 60px rgba(0,0,0,.16))
+    drop-shadow(0 14px 28px rgba(0,0,0,.10));
 
   transition:
-    opacity 1.1s ease,
-    transform 1.15s cubic-bezier(.12, 1, .22, 1),
-    filter 1.2s ease;
+    opacity .85s ease,
+    transform .95s cubic-bezier(.12, 1, .22, 1);
 
-  will-change: transform, opacity, filter;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }
 
 /* 表示状態 */
 .hotImg.is-visible{
   opacity: 1;
-  transform: translateY(0) scale(1);
-  filter:
-    blur(0px)
-    drop-shadow(0 30px 60px rgba(0,0,0,.18))
-    drop-shadow(0 14px 28px rgba(0,0,0,.10));
+  transform: translate3d(0, 0, 0) scale(1);
 }
 
 /* SP */
 @media (max-width: 900px){
   .hotStage{ min-height: 420px; }
   .hotImg{ width: 88%; }
-}
-
-
-.hotLabel{
-  margin-top: 16px;
-  font-size: 12px;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  opacity: .75;
-}
-
-.hotNote{
-  margin-top: 8px;
-  font-size: 13px;
-  color: var(--c-midgray);
 }
 
 /* =========================
